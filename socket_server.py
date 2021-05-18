@@ -31,13 +31,12 @@ class SockerServer():
         while not user._quit:
             try:
                 client, ip_port = server.accept()
-                print('get client from',client, ip_port)
                 thread_msg = threading.Thread(
                     target=SockerServer.recv_msg,
                     args=(user, client))
                 thread_msg.setDaemon(True)
                 thread_msg.start()
-            except BlockingIOError:
+            except:
                 pass
         server.close()
 
