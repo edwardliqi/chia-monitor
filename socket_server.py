@@ -31,6 +31,8 @@ class SockerServer():
         while not user._quit:
             try:
                 client, ip_port = server.accept()
+                print('get a client')
+                client.setblocking(True)
                 thread_msg = threading.Thread(
                     target=SockerServer.recv_msg,
                     args=(user, client))
