@@ -1,0 +1,4 @@
+
+    strs = ["TXL6003134INFO00017.26F0    0              C117  8              D59   56             E27   12             ", "TXL6003134INFO00019926F0    0              C117  8              D59   56             E27   12             "]
+    for i in range(2):
+        process_item(strs[i])
