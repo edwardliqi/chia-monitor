@@ -20,7 +20,6 @@ def collect_info():
     return tele.encoding()
 if __name__ == '__main__':
     socket_client = SocketClient(hostip='192.168.2.123', port=18080, callback=collect_info)
-    #socket_client = SocketClient(hostip='10.76.168.115', port=18080, callback=collect_info)
     socket_client.run()
     while True:
         char = input("Input q to exit")
