@@ -5,7 +5,12 @@ from telegram import Telegram, Diskinfo
 from configparser import ConfigParser
 
 def collect_info():
-    import psutil
+    try:
+        import psutil
+    except ImportError:
+        import os
+        os.system('pip install psutil')
+        import psutil
     conn = ConfigParser()
     conn.read(file_path)
     interval = int(conn.get('common','interval'))
@@ -18,8 +23,8 @@ def collect_info():
         try:
             info = psutil.disk_usage(x.mountpoint)
             tele[x.mountpoint.replace(':\\','')] = \
-                Diskinfo(str(int(info.total/GB)),
-                         str(int(info.free/GB)))
+                Diskinfo(str(int(info.total/GB)/1024),
+                         str(int(info.free/GB)/1024))
         except:
             pass
     return tele.encoding()

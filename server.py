@@ -27,7 +27,7 @@ def process_item(telegram):
     lock.release()
 
 def treeview_sort_column(tv, col, reverse):
-    l = [(tv.set(k, col), k) for k in tv.get_children('')]
+    l = [(float(tv.set(k, col)), k) for k in tv.get_children('')]
     l.sort(reverse=reverse)
     # rearrange items in sorted positions
     for index, (val, k) in enumerate(l):
