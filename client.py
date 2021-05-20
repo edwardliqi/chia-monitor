@@ -1,12 +1,17 @@
+import os
 import socket
-import psutil
 from socket_client import SocketClient
 from telegram import Telegram, Diskinfo
+from configparser import ConfigParser
 
 def collect_info():
+    import psutil
+    conn = ConfigParser()
+    conn.read(file_path)
+    interval = int(conn.get('common','interval'))
     tele = Telegram()
     tele.set_hostname(socket.gethostname())
-    tele.set_cpu_usage(str(psutil.cpu_percent(1)))
+    tele.set_cpu_usage(str(psutil.cpu_percent(interval)))
     disks = psutil.disk_partitions()
     GB = 1024 * 1024 * 1024
     for x in disks:
@@ -19,7 +24,14 @@ def collect_info():
             pass
     return tele.encoding()
 if __name__ == '__main__':
-    socket_client = SocketClient(hostip='192.168.2.123', port=18080, callback=collect_info)
+    file_path = os.path.join(os.path.abspath('.'),'config.ini')
+    if not os.path.exists(file_path):
+        raise FileNotFoundError("Config file config.ini doesn't exist")
+    conn = ConfigParser()
+    conn.read(file_path)
+    host_ip_address=conn.get('common','host_ip')
+
+    socket_client = SocketClient(hostip=host_ip_address, port=18080, callback=collect_info)
     socket_client.run()
     while True:
         char = input("Input q to exit")
