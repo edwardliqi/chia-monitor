@@ -22,8 +22,9 @@ Later, we can monitor SSD I/O times.
 # Server Interface :
 
  Hostname  | CPU%  | C | D | M | Z |
- ---- | ----- | ------  
+
  A1  | 55 | 50 | 1000 | 888 | 20 
+
  A2  | 20 | 80 | 1555 | 123 | 1000  
  
  > disk freespace unit is GB
